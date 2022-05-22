@@ -1,0 +1,27 @@
+<%- include('./partials/head.ejs') %> 
+  <body>      
+    <%- include('./partials/navbar.ejs') %> 
+    <div class="messages-container">
+      <% if (messages) { %> 
+        <% messages.forEach(function(message) { %>
+      <div class="message-container-img">
+        <img src="/images/V-2.png" alt="">
+        <div class="message-container">
+          <p class="title"><%= message.title %></p>
+          <p class="message"><%= message.message %></p>
+          <div>
+            <% if (currentUser?.isMember) { %>
+            <p class="username">-<%= message.username %></p>
+            <% } else { %>
+            <p class="username">-Anonymous</p>
+            <% } %>
+            <p class="date"><%= message.date_formatted %></p>
+          </div>
+        </div>
+      </div>
+      <% })} else { %>
+      <p>No messages</p>
+      <% } %>
+    </div>
+  </body>
+</html>

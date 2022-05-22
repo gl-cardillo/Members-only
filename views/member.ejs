@@ -1,0 +1,14 @@
+<%- include('./partials/head.ejs') %> 
+<body>
+  <%- include('./partials/navbar.ejs') %> 
+  <div class="form">
+    <h2>Are you Ready to be a Member?</h2>
+    <img src="/images/V-2png" alt="">
+    <form action="member" method="POST">
+      <label for="passcode">Passcode:</label>
+      <input type="password" for="passcode" name="passcode">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

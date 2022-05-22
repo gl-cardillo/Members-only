@@ -1,0 +1,18 @@
+<%- include('./partials/head.ejs') %> 
+<body>
+  <%- include('./partials/navbar.ejs') %> 
+  <div class="form">
+    <h2>Add message</h2>
+      <% errors.forEach((error) => {%>
+      <p><%= error.msg %></p>
+      <%}) %>
+    <form action="message" method="POST">
+      <label for="title">Title:</label>
+      <input name="title" type="text" />
+      <label for="message">Message:</label>
+      <textarea name="message"  type="text" rows="5" ></textarea>
+      <button type='submit'>Submit</button>
+    </form>
+  </div>
+</body>
+</html>

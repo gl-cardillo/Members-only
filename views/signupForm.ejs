@@ -1,0 +1,24 @@
+<%- include('./partials/head.ejs') %> 
+<body>
+  <%- include('./partials/navbar.ejs') %>   
+  <div class="form">
+    <h2>Sign Up</h2>
+    <p>Do you want to leave a message?</p>
+    <p>Create an account now!</p>
+    <% errors.forEach((error) => {%>
+    <p><%= error.msg %></p>
+    <%}) %>
+    <form action="signup" method="POST">
+      <label for="username">Username:</label>
+      <input name="username"  type="text"  />
+      <label for="password">Password:</label>
+      <input name="password"  type="password" />
+      <label for="confirmPassword">Confirm password:</label>
+      <input name="confirmPassword"  type="password" />
+      <button type='submit'>Sign Up</button>
+    </form>
+    <p>Have already an account?</p>
+    <a href="/login"><p>Click here!</p></a>
+  </div>
+</body>
+</html>

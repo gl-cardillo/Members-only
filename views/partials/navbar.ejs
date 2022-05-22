@@ -1,0 +1,37 @@
+<%- include('./head.ejs') %>
+  <body>
+    <div class="navbar">
+      <div class="title-image">
+        <a href="/">        
+          <h1>Members Only</h1>      
+        </a>
+        <img src="/images/V-2.png" alt="">
+      </div>
+      <div class="navbar-options">
+        <% if (currentUser) {%>
+        <% if (currentUser.isMember) {%>
+        <p>You are a member</p>
+        <% } else { %>
+        <a href="/message">
+          <p>Create Message</p>
+        </a>
+        <a href="/member">
+          <p>Become Member</p>
+        </a>
+        <% } %>
+        <p>Become Admin</p>
+        <a href="/logout">
+          <p>Log Out</p>
+        </a>
+        <% } else { %>
+        <a href="/signup">
+          <p>Sign up</p>
+        </a>
+        <a href="/login">
+          <p>Log in</p>
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
