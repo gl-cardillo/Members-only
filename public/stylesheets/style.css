@@ -38,12 +38,12 @@ a {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
   text-align: center;
 }
 
 .navbar-options p {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .messages-container {
