@@ -3,21 +3,25 @@
   <%- include('./partials/navbar.ejs') %> 
   <div class="form">
     <h2>Log in</h2>
+    <div class="errors">
       <% errors.forEach((error) => {%>
       <p><%= error.msg %></p>
-      <%}) %>
+      <%}) %>      
+      <% if (messages.error) {%>
+        <p><%= messages.error %></p>
+     <% } %>
+    </div>
     <form action="/login" method="POST">
       <label for="username">Username:</label>
-      <input name="username"  type="text" />
+      <input name="username"  type="text"  />
       <label for="password">Password:</label>
       <input name="password" type="password" />
-      <% if (messages.error) {%>
-        <%= messages.error %>
-     <% } %>
+
       <button type="submit">Log In</button>
     </form>
     <p>Don't have an accoun yet?</p>
     <a href="/signup"><p>Click here!</p></a>
   </div>
+  <%- include('./partials/footer.ejs') %> 
 </body>
 </html>

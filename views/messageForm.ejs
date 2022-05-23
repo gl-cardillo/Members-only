@@ -2,17 +2,20 @@
 <body>
   <%- include('./partials/navbar.ejs') %> 
   <div class="form">
-    <h2>Add message</h2>
+    <h2>Create message</h2>
+    <div class="errors">
       <% errors.forEach((error) => {%>
       <p><%= error.msg %></p>
       <%}) %>
+    </div>
     <form action="message" method="POST">
       <label for="title">Title:</label>
-      <input name="title" type="text" />
+      <input name="title" type="text" value="<%= title %>" />
       <label for="message">Message:</label>
-      <textarea name="message"  type="text" rows="5" ></textarea>
+      <textarea name="message"  type="text" rows="5" ><%= message %></textarea>
       <button type='submit'>Submit</button>
     </form>
   </div>
+  <%- include('./partials/footer.ejs') %> 
 </body>
 </html>

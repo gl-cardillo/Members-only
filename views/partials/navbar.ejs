@@ -7,19 +7,25 @@
         </a>
         <img src="/images/V-2.png" alt="">
       </div>
-      <div class="navbar-options">
-        <% if (currentUser) {%>
-        <% if (currentUser.isMember) {%>
-        <p>You are a member</p>
-        <% } else { %>
+      <div class="navbar-options">        
+        <% if (currentUser) {%>        
         <a href="/message">
           <p>Create Message</p>
         </a>
+        <% if (currentUser.isMember) {%>
+        <p>You are a Member</p>
+        <% } else { %>
         <a href="/member">
           <p>Become Member</p>
         </a>
         <% } %>
-        <p>Become Admin</p>
+        <% if (currentUser.isAdmin) { %>
+          <p>You are a Admin</p>
+        <% } else { %>
+          <a href="/admin">
+            <p>Become Admin</p>      
+          </a>
+          <% } %>
         <a href="/logout">
           <p>Log Out</p>
         </a>

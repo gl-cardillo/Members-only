@@ -12,21 +12,15 @@ This is a simple page called members only, where users can leave a message but o
 ---
 - The user can sign up /login.
 - The user can see the messages.
-- The user can became Member and see the user who leave the message.
+- The user can became Member and see the user who leave the message and the time.
+- The user can become Admin and delete messages.
 
 <br />
 
-## Future functionalities:
----
-
--The user can become Admin and delete messages.
-
-<br />
-
-The passcode for become Memeber is ImReadyToBeMember
-
+The passcode for become Memeber is ImReadyToBeMember.
+The passcode for become Admin is ImReadyToBeAdmin.
 
 
 ## Link
 ---
-N/A at the moment
+Check the [demo]( https://lc-members-only.herokuapp.com/) 

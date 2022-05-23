@@ -2,14 +2,14 @@
 <body>
   <%- include('./partials/navbar.ejs') %> 
   <div class="form">
-    <h2>Are you Ready to be a Member?</h2>
+    <h2>Are you Ready to be a Admin?</h2>
     <img src="/images/V-2png" alt="">
     <div class="errors">
       <% if (error) {%>
       <p><%= error %></p>
       <% } %>
     </div>
-    <form action="member" method="POST">
+    <form action="Admin" method="POST">
       <label for="passcode">Passcode:</label>
       <input type="password" for="passcode" name="passcode">
       <button type="submit">Submit</button>

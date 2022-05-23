@@ -24,9 +24,15 @@ router.get('/member', authenticationMiddleware, userController.becomeMemberGet);
 
 router.post('/member', userController.becomeMemberPost);
 
+router.get('/admin', authenticationMiddleware, userController.becomeAdminGet);
+
+router.post('/admin', userController.becomeAdminPost);
+
 router.get('/message', authenticationMiddleware,  messageController.messageGet);
 
-router.post('/message',  messageController.messagePost);
+router.post('/message', messageController.messagePost);
+
+router.post('/delete', messageController.deleteMessage)
 
 router.get('/*', userController.errorGet)
 

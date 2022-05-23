@@ -4,7 +4,7 @@ const passport = require("passport");
 const { body, validationResult } = require("express-validator");
 
 exports.singUpGet = (req, res, next) => {
-  res.render("signupForm", { errors: [] });
+  res.render("signupForm", { errors: [], username: "" });
 };
 
 exports.signUpPost = [
@@ -25,7 +25,7 @@ exports.signUpPost = [
   async (req, res, next) => {
     const userExists = await User.find({ username: req.body.username });
     if (userExists.length > 0) {
-      res.render("signupForm", { errors: [{ msg: "user already exists" }] });
+      res.render("signupForm", { errors: [{ msg: "User already exists" }] });
       return;
     }
     const password = await bcrypt.hash(req.body.password, 10);
@@ -33,10 +33,11 @@ exports.signUpPost = [
       username: req.body.username,
       password: password,
       isMember: false,
+      isAdmin: false
     });
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render("signupForm", { errors: errors.array() });
+      res.render("signupForm", { errors: errors.array()});
     } else {
       user.save((err) => {
         if (err) {
@@ -53,12 +54,7 @@ exports.signUpPost = [
 ];
 
 exports.loginGet = (req, res, next) => {
-  res.render("loginForm", { errors: [] });
-};
-
-exports.logout = (req, res, next) => {
-  req.logout();
-  res.redirect("/");
+  res.render("loginForm", { errors: []});
 };
 
 exports.loginPost = (req, res, next) => {
@@ -69,8 +65,12 @@ exports.loginPost = (req, res, next) => {
   })(req, res, next);
 };
 
+exports.logout = (req, res, next) => {
+  req.logout();
+  res.redirect("/");
+};
 exports.becomeMemberGet = (req, res, next) => {
-  res.render("member");
+  res.render("member", {error : false});
 };
 
 exports.becomeMemberPost = (req, res, next) => {
@@ -82,12 +82,35 @@ exports.becomeMemberPost = (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.redirect("/");
+        res.redirect('/');
       }
     );
+  } else {
+          res.render("member", {error: "Wrong passcode"});  
+  }
+};
+
+exports.becomeAdminGet = (req, res, next) => {
+  res.render("admin", {error : false});
+};
+
+exports.becomeAdminPost = (req, res, next) => {
+  if (req.body.passcode === process.env.ADMIN_PASSCODE) {
+    User.findOneAndUpdate(
+      { username: req.user.username },
+      { isMember: true, isAdmin: true },
+      function (err) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect('/');
+      }
+    );
+  } else {
+    res.render("admin", {error: "Wrong passcode"});  
   }
 };
 
 exports.errorGet = (req, res, next) => {
-  res.render("error.ejs");
+  res.render("error");
 };
