@@ -1,31 +1,31 @@
-const User = require("../models/user");
-const bcrypt = require("bcryptjs");
-const passport = require("passport");
-const { body, validationResult } = require("express-validator");
+const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const { body, validationResult } = require('express-validator');
 
 exports.singUpGet = (req, res, next) => {
-  res.render("signupForm", { errors: [], username: "" });
+  res.render('signupForm', { errors: [], username: '' });
 };
 
 exports.signUpPost = [
-  body("username")
+  body('username')
     .trim()
     .isLength(2)
-    .withMessage("Username must be at least two character"),
-  body("password")
+    .withMessage('Username must be at least two character'),
+  body('password')
     .trim()
     .isLength(6)
-    .withMessage("Password must be at least 6 character"),
-  body("confirmPassword").custom((value, { req }) => {
+    .withMessage('Password must be at least 6 character'),
+  body('confirmPassword').custom((value, { req }) => {
     if (value !== req.body.password) {
-      throw new Error("Passwords do not match");
+      throw new Error('Passwords do not match');
     }
     return true;
   }),
   async (req, res, next) => {
     const userExists = await User.find({ username: req.body.username });
     if (userExists.length > 0) {
-      res.render("signupForm", { errors: [{ msg: "User already exists" }] });
+      res.render('signupForm', { errors: [{ msg: 'User already exists' }] });
       return;
     }
     const password = await bcrypt.hash(req.body.password, 10);
@@ -33,19 +33,19 @@ exports.signUpPost = [
       username: req.body.username,
       password: password,
       isMember: false,
-      isAdmin: false
+      isAdmin: false,
     });
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render("signupForm", { errors: errors.array()});
+      res.render('signupForm', { errors: errors.array() });
     } else {
       user.save((err) => {
         if (err) {
           return next(err);
         }
-        passport.authenticate("local", {
-          successRedirect: "/",
-          failureRedirect: "/signup",
+        passport.authenticate('local', {
+          successRedirect: '/',
+          failureRedirect: '/signup',
           failureFlash: true,
         })(req, res, next);
       });
@@ -54,23 +54,23 @@ exports.signUpPost = [
 ];
 
 exports.loginGet = (req, res, next) => {
-  res.render("loginForm", { errors: []});
+  res.render('loginForm', { errors: [] });
 };
 
 exports.loginPost = (req, res, next) => {
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
     failureFlash: true,
   })(req, res, next);
 };
 
 exports.logout = (req, res, next) => {
   req.logout();
-  res.redirect("/");
+  res.redirect('/');
 };
 exports.becomeMemberGet = (req, res, next) => {
-  res.render("member", {error : false});
+  res.render('member', { error: false });
 };
 
 exports.becomeMemberPost = (req, res, next) => {
@@ -86,12 +86,12 @@ exports.becomeMemberPost = (req, res, next) => {
       }
     );
   } else {
-          res.render("member", {error: "Wrong passcode"});  
+    res.render('member', { error: 'Wrong passcode' });
   }
 };
 
 exports.becomeAdminGet = (req, res, next) => {
-  res.render("admin", {error : false});
+  res.render('admin', { error: false });
 };
 
 exports.becomeAdminPost = (req, res, next) => {
@@ -107,10 +107,10 @@ exports.becomeAdminPost = (req, res, next) => {
       }
     );
   } else {
-    res.render("admin", {error: "Wrong passcode"});  
+    res.render('admin', { error: 'Wrong passcode' });
   }
 };
 
 exports.errorGet = (req, res, next) => {
-  res.render("error");
+  res.render('error');
 };
